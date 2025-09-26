@@ -1,0 +1,72 @@
+sudo apt install kea-dhcp4-server -y
+#sudo cp /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf_exemple
+#sudo echo '{ "Dhcp4": { "interfaces-config": { "interfaces": [ "ens192" ] }, "valid-lifetime": 691200, "renew-timer": 345600, "rebind-timer": 604800, "authoritative": true, "lease-database": { "type": "memfile", "persist": true, "name": "/var/lib/kea/kea-leases4.csv", "lfc-interval": 3600 }, "subnet4": [ { "subnet": "10.200.1.0/24", "pools": [ { "pool": "10.200.1.10 - 10.200.1.100" } ], "option-data": [ { "name": "domain-name-servers", "data": "10.200.1.1" }, { "name": "routers", "data": "10.200.1.254" } ] } ] } }' > /etc/kea/kea-dhcp4.conf
+echo '{
+  "Dhcp4": {
+    "interfaces-config": {
+      "interfaces": ["ens18"]
+    },
+    "valid-lifetime": 691200,
+    "renew-timer": 345600,
+    "rebind-timer": 604800,
+    "authoritative": true,
+    "lease-database": {
+      "type": "memfile",
+      "persist": true,
+      "name": "/var/lib/kea/kea-leases4.csv",
+      "lfc-interval": 3600
+    },
+    "subnet4": [
+      {
+        "subnet": "10.10.0.0/16",
+        "pools": [
+          {
+            "pool": "10.10.1.2 - 10.10.1.10"
+          }
+        ],
+        "option-data": [
+          {
+            "name": "domain-name-servers",
+            "data": "10.10.1.1"
+          },
+          {
+            "name": "routers",
+            "data": "10.10.0.254"
+          }
+        ], 
+        "reservations": [
+          {
+            "hw-address": "bc:24:11:f0:07:bf",
+            "ip-address": "10.10.1.3"
+          },
+          {
+            "hw-address": "bc:24:11:52:38:d2",
+            "ip-address": "10.10.1.2"
+          },
+          {
+            "hw-address": "bc:24:11:69:8c:0f",
+            "ip-address": "10.10.1.4"
+          },
+          {
+            "hw-address": "bc:24:11:4e:53:11",
+            "ip-address": "10.10.1.5"
+          }
+        ]
+      }
+    ], 
+    "loggers": [
+      {
+        "name": "kea-dhcp4",
+        "output_options": [
+          {
+            "output": "syslog"
+          }
+        ],
+        "severity": "INFO",
+        "debuglevel": 0
+      }
+    ]
+  }
+}' > /etc/kea/kea-dhcp4.conf
+sudo systemctl restart kea-dhcp4-server.service
+#systemctl status kea-dhcp4-server
