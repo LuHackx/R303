@@ -2,47 +2,47 @@
 sudo apt install apache2
 
 # modification des fichiers de configuration
-touch /etc/apache2/sites-enabled/site1.conf
-echo "<VirtualHost *:80>" > /etc/apache2/sites-enabled/site1.conf
-echo "	ServerAdmin webmaster@localhost" >> /etc/apache2/sites-enabled/site1.conf
-echo "	ServerName www.site1.mon.lan" >> /etc/apache2/sites-enabled/site1.conf
-echo "	ServerAlias www.site1.mon.lan" >> /etc/apache2/sites-enabled/site1.conf
-echo "	DocumentRoot /var/www/site1" >> /etc/apache2/sites-enabled/site1.conf
-echo "	ErrorLog \${APACHE_LOG_DIR}/error_site1.log" >> /etc/apache2/sites-enabled/site1.conf
-echo "	CustomLog \"|/usr/bin/logger -t apache2\" combined" >> /etc/apache2/sites-enabled/site1.conf
-echo "</VirtualHost>" >> /etc/apache2/sites-enabled/site1.conf
+#touch /etc/apache2/sites-enabled/site1.conf
+#echo "<VirtualHost *:80>" > /etc/apache2/sites-enabled/site1.conf
+#echo "	ServerAdmin webmaster@localhost" >> /etc/apache2/sites-enabled/site1.conf
+#echo "	ServerName www.site1.mon.lan" >> /etc/apache2/sites-enabled/site1.conf
+#echo "	ServerAlias www.site1.mon.lan" >> /etc/apache2/sites-enabled/site1.conf
+#echo "	DocumentRoot /var/www/site1" >> /etc/apache2/sites-enabled/site1.conf
+#echo "	ErrorLog \${APACHE_LOG_DIR}/error_site1.log" >> /etc/apache2/sites-enabled/site1.conf
+#echo "	CustomLog \"|/usr/bin/logger -t apache2\" combined" >> /etc/apache2/sites-enabled/site1.conf
+#echo "</VirtualHost>" >> /etc/apache2/sites-enabled/site1.conf
 
-touch /etc/apache2/sites-enabled/site2.conf
-echo "<VirtualHost *:80>" >> /etc/apache2/sites-enabled/site2.conf
-echo "	ServerAdmin webmaster@localhost" >> /etc/apache2/sites-enabled/site2.conf
-echo "	ServerName www.site2.mon.lan" >> /etc/apache2/sites-enabled/site2.conf
-echo "	ServerAlias www.site2.mon.lan" >> /etc/apache2/sites-enabled/site2.conf
-echo "	DocumentRoot /var/www/site2" >> /etc/apache2/sites-enabled/site2.conf
-echo "	ErrorLog \${APACHE_LOG_DIR}/error_site2.log" >> /etc/apache2/sites-enabled/site2.conf
-echo "	CustomLog \"|/usr/bin/logger -t apache2\" combined" >> /etc/apache2/sites-enabled/site2.conf
-echo "</VirtualHost>" >> /etc/apache2/sites-enabled/site2.conf
+#touch /etc/apache2/sites-enabled/site2.conf
+#echo "<VirtualHost *:80>" >> /etc/apache2/sites-enabled/site2.conf
+#echo "	ServerAdmin webmaster@localhost" >> /etc/apache2/sites-enabled/site2.conf
+#echo "	ServerName www.site2.mon.lan" >> /etc/apache2/sites-enabled/site2.conf
+#echo "	ServerAlias www.site2.mon.lan" >> /etc/apache2/sites-enabled/site2.conf
+#echo "	DocumentRoot /var/www/site2" >> /etc/apache2/sites-enabled/site2.conf
+#echo "	ErrorLog \${APACHE_LOG_DIR}/error_site2.log" >> /etc/apache2/sites-enabled/site2.conf
+#echo "	CustomLog \"|/usr/bin/logger -t apache2\" combined" >> /etc/apache2/sites-enabled/site2.conf
+#echo "</VirtualHost>" >> /etc/apache2/sites-enabled/site2.conf
 
 #rm -f /etc/apache2/sites-enabled/000-default.conf
-sudo a2dissite 000-default.conf
+#sudo a2dissite 000-default.conf
 
-sudo a2ensite site1.conf
-sudo a2ensite site2.conf
+#sudo a2ensite site1.conf
+#sudo a2ensite site2.conf
 
 # creation des sites
-mkdir /var/www/site1
-touch /var/www/site1/index.html
-echo "<html><body><h1>Bienvenu sur le site1</h1></body></html>" > /var/www/site1/index.html
-mkdir /var/www/site2
-touch /var/www/site2/index.html
-echo "<html><body><h1>Bienvenu sur le site2</h1></body></html>" > /var/www/site2/index.html
+#mkdir /var/www/site1
+#touch /var/www/site1/index.html
+#echo "<html><body><h1>Bienvenu sur le site1</h1></body></html>" > /var/www/site1/index.html
+#mkdir /var/www/site2
+#touch /var/www/site2/index.html
+#echo "<html><body><h1>Bienvenu sur le site2</h1></body></html>" > /var/www/site2/index.html
 
 # modif ports
-echo "Listen 80" > /etc/apache2/ports.conf
+#echo "Listen 80" > /etc/apache2/ports.conf
 
 # Mise en place des noms de domaines
-echo "www.site1 CNAME serveur" >> /etc/bind/db.mon.lan
-echo "www.site2 CNAME serveur" >> /etc/bind/db.mon.lan
+#echo "www.site1 CNAME serveur" >> /etc/bind/db.mon.lan
+#echo "www.site2 CNAME serveur" >> /etc/bind/db.mon.lan
 
 # relance les serveurs
 systemctl restart apache2
-systemctl restart named
+#systemctl restart named
