@@ -1,0 +1,50 @@
+sudo apt install bind9 -y
+echo "options { 
+	directory \"/var/cache/bind\"; 
+	allow-query { any; }; 
+	forward first; 
+	forwarders { 
+		10.10.0.1; 
+	}; 
+};
+logging {
+    channel default_syslog {
+        syslog daemon;        // envoie vers le service syslog (facility daemon)
+        severity info;        // niveau info (pour avoir plus que les erreurs)
+        print-time yes;
+        print-severity yes;
+        print-category yes;
+    };
+
+    category queries { default_syslog; };  // log des requêtes DNS (queries)
+    category default { default_syslog; };  // log par défaut
+};" > /etc/bind/named.conf.options
+echo 'zone "b1.lan" {
+	type master;
+	file "/etc/bind/db.b1.lan";
+};
+zone "b14.lan" {
+	type master;
+	file "/etc/bind/db.b14.lan";
+};
+' > /etc/bind/named.conf.local
+
+#creation du fichier db.b1.lan
+touch /etc/bind/db.b1.lan
+echo '$TTL 3h
+@ IN SOA ns.b1.lan. mailaddress.b1.lan. (
+2025051901
+6H
+1H
+5D
+1D )
+@ IN NS ns.b1.lan.
+@ IN MX 10 mail.b1.lan.
+ns A 10.10.1.1
+serveur A 10.10.1.1
+serveurS A 10.10.1.5
+serveurM A 10.10.1.2
+clientD A 10.10.1.4
+clientW A 10.10.1.3
+routeur A 10.10.0.254' > /etc/bind/db.mon.lan
+sudo systemctl restart bind9
